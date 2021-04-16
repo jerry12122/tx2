@@ -114,7 +114,7 @@ void led(int pin,string status){
   }
 }
 //----------------------------------------------
-
+int times=0;
 
 void MainWindow::on_LED_Shining_clicked()
 {
@@ -150,9 +150,17 @@ void MainWindow::on_LED_Shining_clicked()
         led(398,"off");
     }
 }
+
+
+void MainWindow::on_LED_Switching_clicked()
+{
+    timer = new QTimer(NULL);
+    connect(timer,SIGNAL(timeout()),this,SLOT(switching()));
+    timer->start((6-((ui->horizontalSlider->value()))/20)*100);
+}
 void MainWindow::switching()
 {
-
+    times++;
     QCheckBox* checkboxes[] = {ui->LED1, ui->LED2, ui->LED3, ui->LED4};
     QLabel* leds[] = {ui->PLed_1, ui->PLed_2, ui->PLed_3, ui->PLed_4};
     int gpio[4] = {396,397,429,398};
@@ -176,21 +184,21 @@ void MainWindow::switching()
             checkboxes[i+2]->setChecked(true);
         }
     }
+    if(times>=ui->times->text().toInt())
+    {
+        times = 0;
+        timer->stop();
+    }
 
-}
-
-void MainWindow::on_LED_Switching_clicked()
-{
-    timer = new QTimer(NULL);
-    connect(timer,SIGNAL(timeout),this,SLOT(switching()));
-    timer->start((6-((ui->spinBox->value())) / 20 ) *1000 );
 }
 void MainWindow::keyPressEvent(QKeyEvent *k){
     if(k->key()==43){
-        ui->spinBox->setValue(ui->spinBox->value()+5);
+        ui->horizontalSlider->setValue(ui->horizontalSlider->value()+1);
+
     }else if(k->key()==45){
-        ui->spinBox->setValue(ui->spinBox->value()-5);
+        ui->horizontalSlider->setValue(ui->horizontalSlider->value()-1);
     }
+    ui->progressBar->setValue(ui->horizontalSlider->value());
 }
 
 
@@ -207,4 +215,9 @@ void MainWindow::on_LED_Switching_off_clicked()
 
     }
 
+}
+
+void MainWindow::on_horizontalSlider_sliderMoved(int position)
+{
+    ui->progressBar->setValue(position);
 }

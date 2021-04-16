@@ -32,6 +32,8 @@ private slots:
 
     void on_LED_Switching_off_clicked();
 
+    void on_horizontalSlider_sliderMoved(int position);
+
 private:
     Ui::MainWindow *ui;
 };
