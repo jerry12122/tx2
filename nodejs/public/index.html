@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vuewport" content="width=\, initial-scale=1.0">
+        <title>Nodejs</title>
+    </head>
+    <body>
+        <p>
+            <h1>Nodejs</h1>
+        </p>
+        <hr>
+        <form action="/index" method="get">
+            <h2>LED Control Panel</h2>
+            <label><input type="checkbox" name="led1">LED1</label>
+            <label><input type="checkbox" name="led2">LED2</label>
+            <br>
+            <label><input type="checkbox" name="led3">LED3</label>
+            <label><input type="checkbox" name="led4">LED4</label>
+            <br>
+            <input type ="submit" value="Submit"> 
+            <input  type="radio" name="status" value="on">ON
+            <input  type="radio" name="status" value="off">OFF
+            <hr>
+        </form>
+        <form action="/index" method="get">
+            <h2>LED Switch Frequency</h2>
+            <label><input type="input" name="times"></label>
+            <br>
+            <label><input type="submit" name="shine" value="Mode_Shine"></label>
+            <br>
+            <hr>
+        </form>
+    </body>
+</html>
