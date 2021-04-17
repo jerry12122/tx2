@@ -12,18 +12,18 @@
         <hr>
         <form action="/index" method="get">
             <h2>LED Control Panel</h2>
-            <label><input type="checkbox" name="LED">LED</label>
-            <label><input type="checkbox" name="LED2">LED2</label>
+            <label><input type="checkbox" name="LED" value="LED1">LED1</label>
+            <label><input type="checkbox" name="LED" value="LED2">LED2</label>
             <br>
-            <label><input type="checkbox" name="LED3">LED3</label>
-            <label><input type="checkbox" name="LED4">LED4</label>
+            <label><input type="checkbox" name="LED" value="LED3">LED3</label>
+            <label><input type="checkbox" name="LED" value="LED4">LED4</label>
             <br>
             <input type ="submit" value="Submit"> 
             <input  type="radio" name="status" value="on">ON
             <input  type="radio" name="status" value="off">OFF
             <hr>
         </form>
-        <form action="/index" method="get">
+        <form action="/shine" method="get">
             <h2>LED Switch Frequency</h2>
             <label><input type="input" name="times"></label>
             <br>

@@ -1,30 +1,54 @@
 const express = require("express");
 const app = express();
 
-
-
 app.use(express.static('./public'));
 
 app.get("/index",(req,res)=>{
 	var response={
-		"my name": req.query.led1,
-		"my id" :req.query.status
+		"my led1": req.query.LED,
+		"my radio" :req.query.status
 	}
+	controlLED(req.query.LED,req.query.status)
 	res.send(response)
-})
+});
+	
+
+app.get("/shine",(req,res)=>{
+	var response={
+		"my times" :req.query.times
+	}
+	shine(req.query.times)
+	res.send(response)
+});
 
 function controlLED(LED,POWER){
-
 	let child_process = require("child_process");	//導入模組
+	LED.forEach(function(item, i) { 
+		let process = child_process.execFile('sudo',[	
+			"./C++/main2",item,POWER
+		]);	
+	});												//執行程式
 
-	let process = child_process.exeFile('sudo',[	
-		".C++/main",LED,POWER
-	]);												//執行程式
 	process.stdout.on('data',(data)=>{				
 		console.log(`stdout: ${data}`);
 	});												//監聽輸出
 	process.stderr.on('data',(data)=>{
-		console.log(`stderr: ${data}`);
+		console.error(`stderr: ${data}`);
+	});												//監聽錯誤
+}
+
+function shine(times){
+	let child_process = require("child_process");	//導入模組
+
+	let process = child_process.execFile('sudo',[	
+		"./C++/main2 shine",times
+	]);												//執行程式
+
+	process.stdout.on('data',(data)=>{				
+		console.log(`stdout: ${data}`);
+	});												//監聽輸出
+	process.stderr.on('data',(data)=>{
+		console.error(`stderr: ${data}`);
 	});												//監聽錯誤
 }
 
