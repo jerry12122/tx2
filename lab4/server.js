@@ -8,8 +8,9 @@ app.get("/index",(req,res)=>{
 		"my led1": req.query.LED,
 		"my radio" :req.query.status
 	}
-	controlLED(req.query.LED,req.query.status)
 	res.send(response)
+	controlLED(req.query.LED,req.query.status)
+	
 });
 	
 
@@ -23,11 +24,18 @@ app.get("/shine",(req,res)=>{
 
 function controlLED(LED,POWER){
 	let child_process = require("child_process");	//導入模組
-	LED.forEach(function(item, i) { 
+	if(Array.isArray(LED)){
+		LED.forEach(function(item, i) { 
+			let process = child_process.execFile('sudo',[	
+				"./C++/main",item,POWER
+			]);	
+		});	
+	}
+	else{
 		let process = child_process.execFile('sudo',[	
-			"./C++/main2",item,POWER
+			"./C++/main",LED,POWER
 		]);	
-	});												//執行程式
+	}
 
 	process.stdout.on('data',(data)=>{				
 		console.log(`stdout: ${data}`);
@@ -41,7 +49,7 @@ function shine(times){
 	let child_process = require("child_process");	//導入模組
 
 	let process = child_process.execFile('sudo',[	
-		"./C++/main2 shine",times
+		"./C++/main","shine",times
 	]);												//執行程式
 
 	process.stdout.on('data',(data)=>{				
