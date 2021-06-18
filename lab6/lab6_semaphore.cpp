@@ -115,9 +115,9 @@ void* led1_thread(void* arg){
     sem_wait(&semaphore);
     for(int i=0;i<times;i++){
       led(LED1,status[0]-'0');
-      usleep(500000);
+      sleep(1);
       led(LED1,1-(status[0]-'0'));
-      usleep(500000);
+      sleep(1);
     }
 
     pthread_exit(NULL);
@@ -128,9 +128,9 @@ void* led2_thread(void* arg){
     sem_wait(&semaphore);
     for(int i=0;i<times;i++){
       led(LED2,status[1]-'0');
-      usleep(500000);
+      sleep(1);
       led(LED2,1-(status[1]-'0'));
-      usleep(500000);
+      sleep(1);
     }
 
     pthread_exit(NULL);
@@ -141,9 +141,9 @@ void* led3_thread(void* arg){
     sem_wait(&semaphore);
     for(int i=0;i<times;i++){
       led(LED3,status[2]-'0');
-      usleep(500000);
+      sleep(1);
       led(LED3,1-(status[2]-'0'));
-      usleep(500000);
+      sleep(1);
     }
 
     pthread_exit(NULL);
@@ -154,9 +154,9 @@ void* led4_thread(void* arg){
     sem_wait(&semaphore);
     for(int i=0;i<times;i++){
       led(LED4,status[3]-'0');
-      usleep(500000);
+      sleep(1);
       led(LED4,1-(status[3]-'0'));
-      usleep(500000);
+      sleep(1);
     }
 
     pthread_exit(NULL);
